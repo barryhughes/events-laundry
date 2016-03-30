@@ -2,7 +2,7 @@
 /**
  * Plugin name: Launder Events (for The Events Calendar)
  * Description: Experimental utility to recycle events by automatically updating the start date at set intervals. Requires at least TEC 4.1.
- * Version:     2016.02.29
+ * Version:     2016.03.30
  * Author:      Barry Hughes
  * Author URI:  http://codingkills.me
  * License:     GPLv3 <https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -38,8 +38,11 @@ class EventsLaunderer {
 	const LAUNDRY_PROCESS  = 'tec-laundry-process';
 
 
+	/**
+	 * Expects to run during the init action.
+	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'launder_setup_task' ] );
+		$this->launder_setup_task();
 		add_action( self::LAUNDRY_PROCESS, [ $this, 'launder_events' ] );
 		add_action( 'add_meta_boxes', [ $this, 'meta_box_register' ] );
 		add_action( 'save_post', [ $this, 'meta_box_save' ] );
